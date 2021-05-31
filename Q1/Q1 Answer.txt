@@ -11,4 +11,4 @@ Since we already know the amount of people (n) and also the upper and lower limi
 we can use bin sort/bucket sort to get O(n). If we set the bin by the heights of the people, 
 then it only need 1 iteration to go through the bins and the data would be sorted.
 
-The algorithm can be found in the q1_test.dart file
+The algorithm can be found in the q1_test.py file
