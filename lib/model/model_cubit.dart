@@ -1,26 +1,28 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
+
 
 part 'model_state.dart';
 
 class ModelCubit extends Cubit<ModelState> {
-  ModelCubit() : super(ModelState(
-    counter: 0,
-  ));
+  ModelCubit() : super(const ModelState());
   void increment() {
-    emit(ModelState(counter: state.counter! +1));
-    print('cobain: ${state.counter}');
+    emit(state.copyWith(counter: state.counter +1, isClicked: true));
   }
   void updateName(String value){
-    state.nama = value;
-    emit(ModelState(nama: state.nama, isClicked: true));
-    print('test: ${state.nama}');
+    final nama = value;
+    emit(state.copyWith(nama: nama, isClicked: true));
   }
 
   void textFilled (String? value) {
-    if (value!.isNotEmpty)
-      emit(ModelState(isFilled: true));
-    else
-      emit(ModelState(isFilled: false));
+    if (value!.isNotEmpty) {
+      emit(state.copyWith(
+          isFilled: true));
+    } else {
+      emit(state.copyWith(
+          nama: value,
+          isFilled: false,
+          isClicked: false));
+    }
   }
 }

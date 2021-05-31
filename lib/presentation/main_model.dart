@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class Model {
 
   final TextEditingController textEditingController = TextEditingController();
+  final FocusNode textFocusNode = FocusNode();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   Widget button({required bool isEnabled, required void Function() callback, required title}) {
     return ElevatedButton(
@@ -25,9 +27,18 @@ class Model {
 
 
 
+  Widget textResult({int? count, String? nama}){
+    if(nama != ''){
+      if (count != 0){
+        return Text('Hi, $nama. Kamu sudah menekan tombol add sebanyak $count');
+      }
+      return Text('Hi, $nama');
+    } else {
+      return Text('Result');
+    }
 
 
 
-  
+}
 
 }

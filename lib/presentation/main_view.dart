@@ -16,6 +16,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final Model model = Model();
+  String name = '';
+
 
 
   @override
@@ -28,14 +30,12 @@ class _MainPageState extends State<MainPage> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(15),
-          child: BlocConsumer<ModelCubit, ModelState>(
-            listener: (context, state) {
-              // model.textEditingController.text = state.nama!;
-            },
+          child: BlocBuilder<ModelCubit, ModelState>(
             builder: (context, state) {
               return Column(
                 children: [
                   TextFormField(
+                    focusNode: model.textFocusNode,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))
                     ],
@@ -47,14 +47,17 @@ class _MainPageState extends State<MainPage> {
                       value = model.textEditingController.text;
                       BlocProvider.of<ModelCubit>(context).textFilled(value);
                     },
+                    onFieldSubmitted: (_) => model.textFocusNode.unfocus(),
                   ),
                   SizedBox(
                     height: 50,
                   ),
                   model.button(
                       isEnabled: state.isFilled,
-                      callback: () => BlocProvider.of<ModelCubit>(context).updateName(
-                          model.textEditingController.text),
+                      callback: () {
+                        BlocProvider.of<ModelCubit>(context)
+                          .updateName(model.textEditingController.text);
+                          },
                       title: 'Confirm'
                   ),
                   model.button(
@@ -62,15 +65,10 @@ class _MainPageState extends State<MainPage> {
                       callback: () => BlocProvider.of<ModelCubit>(context).increment(),
                       title: 'Add'
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   child: Text('Add'),
-                  //   style: model.raisedButtonStyle,
-                  // ),
                   SizedBox(
                     height: 50,
                   ),
-                  Text('result' + '${state.counter ?? ''}')
+                  model.textResult(count: state.counter, nama: state.nama),
                 ],
               );
             },
