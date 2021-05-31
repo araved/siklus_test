@@ -1,0 +1,14 @@
+Imagine you have a case, where you need to sort all of Indonesian people's height.
+Their height may vary, between 20 cm (newborn) to 220 cm (maybe a very tall person).
+Indonesia's population consists of more than 270 million people.
+If you have the data of all Indonesia's resident heights, how do you want to sort this data? 
+
+For example, for 5 people in the family, you have a list of their heights, 34, 160, 175, 90, 120. 
+The sorted result should be 34, 90, 120, 160, 175. 
+How will you do this for 270 million people?
+
+Since we already know the amount of people (n) and also the upper and lower limit of the data,
+we can use bin sort/bucket sort to get O(n). If we set the bin by the heights of the people, 
+then it only need 1 iteration to go through the bins and the data would be sorted.
+
+The algorithm can be found in the q1_test.dart file
